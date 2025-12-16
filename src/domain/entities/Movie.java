@@ -18,7 +18,6 @@ public class Movie {
     private boolean isIncludedPlan;
 
     //Construtor
-
     public Movie(String title, String genre, int releaseYear, ArrayList<Double> userRating, int duration, String synopsis, String director, String[] actors, boolean isIncludedPlan) {
         this.title = title;
         this.genre = genre;
@@ -31,18 +30,17 @@ public class Movie {
         this.isIncludedPlan = isIncludedPlan;
     }
 
-    //Métodos
-
     //Representação em formato ‘String’ da entidade Movie
     public String toString() {
         return String.format("%s (%d) %s %s", title, releaseYear, Duration.ofMinutes(duration), getIsIncludedPlan());
     }
 
+    //Métodos
     public String getIsIncludedPlan() {
         return isIncludedPlan ? "Incluído no plano" : "Não incluído no plano";
     }
 
-    public void setRating() {
+    public void setUserRatingRating() {
         System.out.println("Digite a nota do filme (0-10) X para finalizar a avaliação: ");
         Scanner scanner = new Scanner(System.in);
 

@@ -1,13 +1,24 @@
 import domain.entities.Movie;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+
 public class Main {
-    static void main(String[] args) {
-        System.out.println("Aplicação Screen Match");
+    public static void main(String[] args) {
 
+        try {
+            String banner = Files.readString(Path.of("src/resources/banner.txt"), StandardCharsets.UTF_8);
+            System.out.println(banner);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-        String[] actors =  {"Marlon Brando", "Al Pacino", "James Caan"};
+        String[] actors = {"Marlon Brando", "Al Pacino", "James Caan"};
         ArrayList<Double> userRating = new ArrayList<>();
         Movie movie = new Movie(
                 "Godfather",
@@ -24,7 +35,7 @@ public class Main {
 
         System.out.println(movie);
 
-        movie.setRating();
+        movie.setUserRatingRating();
         movie.getAverageRating();
     }
 }
