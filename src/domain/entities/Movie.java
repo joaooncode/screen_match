@@ -84,6 +84,7 @@ public class Movie {
                     Menu do filme
                     [1] Exibir ficha técnica
                     [2] Avaliar filme
+                    [3] Sair
                     """);
 
             int option = UtilityFunctions.readOption(scanner);
@@ -94,6 +95,9 @@ public class Movie {
                     break;
                 case 2:
                     setUserRating();
+                case 3:
+                    System.out.println("Saindo do programa...");
+                    return;
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }
@@ -139,8 +143,7 @@ public class Movie {
 
     public String getAverageRating() {
         if (userRating == null || userRating.isEmpty()) {
-            System.out.println("O filme ainda não foi avaliado.");
-            return null;
+            return "Sem avaliações.";
         }
 
         double sum = 0;
