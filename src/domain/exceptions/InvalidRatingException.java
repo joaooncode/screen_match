@@ -1,4 +1,4 @@
-package domain.entities.exceptions;
+package domain.exceptions;
 
 import resources.TerminalColor;
 

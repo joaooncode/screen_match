@@ -1,6 +1,6 @@
 package domain.entities;
 
-import domain.entities.exceptions.InvalidRatingException;
+import domain.exceptions.InvalidRatingException;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class Movie {
         return isIncludedPlan ? "Incluído no plano" : "Não incluído no plano";
     }
 
-    public void setUserRatingRating() {
+    public void setUserRating() {
         System.out.println("Digite a nota do filme (0-10). Digite 'X' para finalizar a avaliação: ");
         Scanner scanner = new Scanner(System.in);
 

@@ -38,7 +38,7 @@ public class Main {
 
         System.out.println(TerminalColor.BLUE_BOLD + movie + TerminalColor.RESET);
 
-        movie.setUserRatingRating();
+        movie.setUserRating();
         movie.getAverageRating();
     }
 }
