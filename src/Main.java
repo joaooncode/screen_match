@@ -1,4 +1,5 @@
 import domain.entities.Movie;
+import domain.entities.Series;
 import resources.TerminalColor;
 
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class Main {
         String[] actors = {"Marlon Brando", "Al Pacino", "James Caan"};
         ArrayList<Double> userRating = new ArrayList<>();
 
-        Movie movie = new Movie(
+        Movie godfather = new Movie(
                 "Godfather",
                 "Criminal",
                 1972,
@@ -35,10 +36,25 @@ public class Main {
                 true
         );
 
-        System.out.println(TerminalColor.BLUE_BOLD + movie + TerminalColor.RESET);
+        Series flash = new Series(
+                "The Flash",
+                "Super-Herói",
+                2014,
+                userRating,
+                "Depois de ser atingido por um raio, Barry Allen acorda de seu coma para descobrir que recebeu o poder da super velocidade, tornando se em Flash e lutando contra o crime na cidade.",
+                "Greg Berlanti",
+                new String[]{" Grant Gustin", "Candice Patton", "Danielle Panabaker"},
+                true,
+                9,
+                184,
+                42,
+                true
+        );
+
+        System.out.println(TerminalColor.BLUE_BOLD + godfather + TerminalColor.RESET);
 
         Scanner scanner = new Scanner(System.in);
 
-       movie.displayMenu(scanner);
+        godfather.displayMenu(scanner);
     }
 }
