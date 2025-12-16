@@ -1,4 +1,5 @@
 import domain.entities.Movie;
+import resources.TerminalColor;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,13 +14,16 @@ public class Main {
 
         try {
             String banner = Files.readString(Path.of("src/resources/banner.txt"), StandardCharsets.UTF_8);
-            System.out.println(banner);
+            System.out.println(TerminalColor.CYAN_BOLD + banner + TerminalColor.RESET);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
+
         String[] actors = {"Marlon Brando", "Al Pacino", "James Caan"};
         ArrayList<Double> userRating = new ArrayList<>();
+
+
         Movie movie = new Movie(
                 "Godfather",
                 "Criminal",
@@ -32,8 +36,7 @@ public class Main {
                 true
         );
 
-
-        System.out.println(movie);
+        System.out.println(TerminalColor.BLUE_BOLD + movie + TerminalColor.RESET);
 
         movie.setUserRatingRating();
         movie.getAverageRating();

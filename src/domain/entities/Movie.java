@@ -1,5 +1,7 @@
 package domain.entities;
 
+import domain.entities.exceptions.InvalidRatingException;
+
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -41,14 +43,17 @@ public class Movie {
     }
 
     public void setUserRatingRating() {
-        System.out.println("Digite a nota do filme (0-10) X para finalizar a avaliação: ");
+        System.out.println("Digite a nota do filme (0-10). Digite 'X' para finalizar a avaliação: ");
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
 
+            System.out.printf("Digite a %dª nota do filme %s: ", userRating.size() + 1, title);
+
             String rating = scanner.nextLine().trim();
             if (rating.equalsIgnoreCase("X")) {
                 System.out.printf("""
+                        
                         Obrigado por avaliar o filme %s!
                         Avaliações inseridas: %s
                         """, title, userRating.toString());
@@ -59,19 +64,20 @@ public class Movie {
             try {
                 double ratingValue = Double.parseDouble(rating);
 
-                if (ratingValue < 1 || ratingValue > 10) {
-                    System.out.println("A nota deve ser entre 1 e 10!");
-                    continue;
+                if (ratingValue < 0 || ratingValue > 10) {
+                    throw new InvalidRatingException("A nota deve estar entre 0 e 10.");
                 }
                 userRating.add(ratingValue);
+            } catch (InvalidRatingException e) {
+                System.out.println(e.getMessage());
             } catch (NumberFormatException e) {
-                System.out.println("Entrada inválida. Por favor digite um número entre 1 e 10.");
+                System.out.println("Entrada inválida. Por favor digite um número entre 0 e 10.");
             }
         }
     }
 
     public void getAverageRating() {
-        if ( userRating == null || userRating.isEmpty()) {
+        if (userRating == null || userRating.isEmpty()) {
             System.out.println("O filme ainda não foi avaliado.");
             return;
         }
