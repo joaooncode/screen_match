@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Scanner;
 
 
 public class Main {
@@ -19,10 +20,8 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-
         String[] actors = {"Marlon Brando", "Al Pacino", "James Caan"};
         ArrayList<Double> userRating = new ArrayList<>();
-
 
         Movie movie = new Movie(
                 "Godfather",
@@ -38,7 +37,8 @@ public class Main {
 
         System.out.println(TerminalColor.BLUE_BOLD + movie + TerminalColor.RESET);
 
-        movie.setUserRating();
-        movie.getAverageRating();
+        Scanner scanner = new Scanner(System.in);
+
+       movie.displayMenu(scanner);
     }
 }

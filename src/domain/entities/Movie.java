@@ -1,6 +1,8 @@
 package domain.entities;
 
 import domain.exceptions.InvalidRatingException;
+import resources.TerminalColor;
+import resources.UtilityFunctions;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -34,12 +36,12 @@ public class Movie {
 
     //Representação em formato ‘String’ da entidade Movie
     public String toString() {
-        return String.format("%s (%d) %s %s", title, releaseYear, Duration.ofMinutes(duration), getIsIncludedPlan());
+        return String.format("%s (%d) %s", title, releaseYear, getIsIncludedPlan());
     }
 
     //Métodos
     public String getIsIncludedPlan() {
-        return isIncludedPlan ? "Incluído no plano" : "Não incluído no plano";
+        return isIncludedPlan ? TerminalColor.GREEN + "[Incluído no plano]" + TerminalColor.RESET : TerminalColor.RED + "[Não incluído no plano]" + TerminalColor.RESET;
     }
 
     public void setUserRating() {
@@ -90,6 +92,68 @@ public class Movie {
         double averageRating = (double) sum / userRating.size();
 
         System.out.printf("Média de avaliação do filme: %.2f", averageRating);
+    }
 
+
+    public void displayMenu(Scanner scanner) {
+        while (true) {
+            System.out.println("""
+                    
+                    Menu do filme
+                    
+                    [1] Exibir Atores
+                    [2] Exibir Diretor
+                    [3] Exibir Sinopse
+                    [4] Exibir Duração
+                    [5] Avaliar filme
+                    [6] Sair
+                    """);
+
+            int option = UtilityFunctions.readOption(scanner);
+
+            switch (option) {
+                case 1:
+                    getActors();
+                    break;
+                case 2:
+                    getDirector();
+                    break;
+                case 3:
+                    getSynopsis();
+                    break;
+                case 4:
+                    getDuration();
+                    break;
+                case 5:
+                    setUserRating();
+                    getAverageRating();
+                    break;
+                case 6:
+                    return;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
+    }
+
+    // Getters
+
+    public void getActors() {
+        System.out.println("Atores do filme: \n");
+        for (int i = 0; i < actors.length ; i++) {
+            System.out.printf("%d - %s%n", i + 1, actors[i]);
+        }
+    }
+
+    public void getDirector() {
+        System.out.printf("Diretor do filme: %s%n", director);;
+    }
+
+    public void getSynopsis() {
+        System.out.printf("Sinopse do filme: %s%n", synopsis);;
+    }
+
+    public void getDuration() {;
+    System.out.printf("Duração do filme: %s%n", UtilityFunctions.FormatMinutesToHours(duration));
     }
 }
