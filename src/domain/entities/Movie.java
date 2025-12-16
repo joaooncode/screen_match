@@ -4,7 +4,6 @@ import domain.exceptions.InvalidRatingException;
 import resources.TerminalColor;
 import resources.UtilityFunctions;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -78,10 +77,70 @@ public class Movie {
         }
     }
 
-    public void getAverageRating() {
+    public void displayMenu(Scanner scanner) {
+        while (true) {
+            System.out.println("""
+                    
+                    Menu do filme
+                    [1] Exibir ficha técnica
+                    [2] Avaliar filme
+                    """);
+
+            int option = UtilityFunctions.readOption(scanner);
+
+            switch (option) {
+                case 1:
+                    displayMovieInformation();
+                    break;
+                case 2:
+                    setUserRating();
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
+    }
+
+    public void displayMovieInformation() {
+        System.out.printf("""
+                Ficha técnica completa do filme %s:
+                
+                Titulo: %s
+                Ano de Lançamento: %d
+                Gênero: %s
+                Diretor: %s
+                Sinopse: %s
+                
+                Atores:
+                %s
+                
+                Avaliação média do filme: %s
+                Duração do filme: %s
+                
+                """, title, title, releaseYear, genre, director, synopsis, this.getActors(), getAverageRating(), getDuration());
+    }
+
+    // Getters
+    public String getActors() {
+        if (actors == null || actors.length == 0) {
+            return "(sem atores cadastrados)";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < actors.length; i++) {
+            sb.append(i + 1).append(" - ").append(actors[i]).append(System.lineSeparator());
+        }
+        return sb.toString().trim();
+    }
+
+
+    public String getDuration() {
+        return UtilityFunctions.FormatMinutesToHours(duration);
+    }
+
+    public String getAverageRating() {
         if (userRating == null || userRating.isEmpty()) {
             System.out.println("O filme ainda não foi avaliado.");
-            return;
+            return null;
         }
 
         double sum = 0;
@@ -89,71 +148,7 @@ public class Movie {
             sum += rating;
         }
 
-        double averageRating = (double) sum / userRating.size();
-
-        System.out.printf("Média de avaliação do filme: %.2f", averageRating);
-    }
-
-
-    public void displayMenu(Scanner scanner) {
-        while (true) {
-            System.out.println("""
-                    
-                    Menu do filme
-                    
-                    [1] Exibir Atores
-                    [2] Exibir Diretor
-                    [3] Exibir Sinopse
-                    [4] Exibir Duração
-                    [5] Avaliar filme
-                    [6] Sair
-                    """);
-
-            int option = UtilityFunctions.readOption(scanner);
-
-            switch (option) {
-                case 1:
-                    getActors();
-                    break;
-                case 2:
-                    getDirector();
-                    break;
-                case 3:
-                    getSynopsis();
-                    break;
-                case 4:
-                    getDuration();
-                    break;
-                case 5:
-                    setUserRating();
-                    getAverageRating();
-                    break;
-                case 6:
-                    return;
-                default:
-                    System.out.println("Opção inválida. Tente novamente.");
-            }
-        }
-    }
-
-    // Getters
-
-    public void getActors() {
-        System.out.println("Atores do filme: \n");
-        for (int i = 0; i < actors.length ; i++) {
-            System.out.printf("%d - %s%n", i + 1, actors[i]);
-        }
-    }
-
-    public void getDirector() {
-        System.out.printf("Diretor do filme: %s%n", director);;
-    }
-
-    public void getSynopsis() {
-        System.out.printf("Sinopse do filme: %s%n", synopsis);;
-    }
-
-    public void getDuration() {;
-    System.out.printf("Duração do filme: %s%n", UtilityFunctions.FormatMinutesToHours(duration));
+        double averageRating = sum / userRating.size();
+        return String.format("%.2f", averageRating);
     }
 }
