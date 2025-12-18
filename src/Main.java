@@ -55,6 +55,7 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        godfather.displayMenu(scanner);
+        //godfather.displayMenu(scanner);
+        flash.displayMenu(scanner);
     }
 }

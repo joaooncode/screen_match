@@ -54,13 +54,13 @@ public class Title {
 
         while (true) {
 
-            System.out.printf("Digite a %dª nota do filme %s: ", userRating.size() + 1, title);
+            System.out.printf("Digite a %dª nota do título %s: ", userRating.size() + 1, title);
 
             String rating = scanner.nextLine().trim();
             if (rating.equalsIgnoreCase("X")) {
                 System.out.printf("""
                         
-                        Obrigado por avaliar o filme %s!
+                        Obrigado por avaliar o título %s!
                         Avaliações inseridas: %s
                         """, title, userRating.toString());
 
@@ -96,7 +96,7 @@ public class Title {
 
             switch (option) {
                 case 1:
-                    displayMovieInformation();
+                    displayTitleInformation();
                     break;
                 case 2:
                     setUserRating();
@@ -109,9 +109,9 @@ public class Title {
         }
     }
 
-    public void displayMovieInformation() {
+    public void displayTitleInformation() {
         System.out.printf("""
-                Ficha técnica completa do filme %s:
+                Ficha técnica completa do título %s:
                 
                 Titulo: %s
                 Ano de Lançamento: %d
@@ -122,8 +122,8 @@ public class Title {
                 Atores:
                 %s
                 
-                Avaliação média do filme: %s
-                Duração do filme: %s
+                Avaliação média do título: %s
+                Duração do título: %s
                 
                 """, title, title, releaseYear, genre, director, synopsis, this.getActors(), getAverageRating(), getDuration());
     }
